@@ -29,3 +29,9 @@ k3s kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data
 
 # you can change and delete init password
 ```
+
+Finally, to configure the application from in ArgoCD for the cluster we need to run `kubectl apply`:
+
+```bash
+sudo k3s kubectl apply -f application.yaml
+```
