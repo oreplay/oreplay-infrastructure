@@ -58,3 +58,8 @@ Seal the secrets with:
 ```bash
 kubeseal --cert secrets/sealed-secrets-public.pem --format yaml < secrets/secrets.yaml > k8s/dev/sealed-secrets.yaml
 ```
+
+Read the secrets with 
+```bash
+k3s kubectl get secret slack-webhook -n myapp -o jsonpath="{.data.SLACK_WEBHOOK_URL}" | base64 -d
+```

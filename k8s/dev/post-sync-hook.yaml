@@ -6,6 +6,7 @@ metadata:
     "argocd.argoproj.io/hook": PostSync
     "argocd.argoproj.io/hook-delete-policy": HookSucceeded
 spec:
+  backoffLimit: 0
   template:
     spec:
       containers:
@@ -24,7 +25,7 @@ spec:
               value: "https://argo-cd.readthedocs.io/en/stable/assets/argocd_architecture.png"
             - name: PROJECT
               value: "from ArgoCD"
-            - name: SLACK_WEBHOOK_URL
+            - name: HOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: slack-webhook
