@@ -1,32 +1,32 @@
-#apiVersion: batch/v1
-#kind: Job
-#metadata:
-#  name: post-sync-curl-job
-#  annotations:
-#    "argocd.argoproj.io/hook": PostSync
-#    "argocd.argoproj.io/hook-delete-policy": HookSucceeded
-#spec:
-#  template:
-#    spec:
-#      containers:
-#        - name: curl
-#          image: public.ecr.aws/ct-nilus/base-images:curl-slack-v1
-#          env:
-#            - name: CHANNEL
-#              value: "C029JLHFC6M"
-#            - name: EMOJI
-#              value: ":rocket:"
-#            - name: CI_COMMIT_BRANCH
-#              valueFrom:
-#                fieldRef:
-#                  fieldPath: metadata.labels['app.kubernetes.io/version']
-#            - name: IMG
-#              value: "https://argo-cd.readthedocs.io/en/stable/assets/argocd_architecture.png"
-#            - name: PROJECT
-#              value: "from ArgoCD"
-#            - name: SLACK_WEBHOOK_URL
-#              valueFrom:
-#                secretKeyRef:
-#                  name: slack-webhook
-#                  key: SLACK_WEBHOOK_URL
-#      restartPolicy: Never
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: post-sync-curl-job
+  annotations:
+    "argocd.argoproj.io/hook": PostSync
+    "argocd.argoproj.io/hook-delete-policy": HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: curl
+          image: public.ecr.aws/ct-nilus/base-images:curl-slack-v1
+          env:
+            - name: CHANNEL
+              value: "C029JLHFC6M"
+            - name: EMOJI
+              value: ":rocket:"
+            - name: CI_COMMIT_BRANCH
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['app.kubernetes.io/version']
+            - name: IMG
+              value: "https://argo-cd.readthedocs.io/en/stable/assets/argocd_architecture.png"
+            - name: PROJECT
+              value: "from ArgoCD"
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: slack-webhook
+                  key: SLACK_WEBHOOK_URL
+      restartPolicy: Never
