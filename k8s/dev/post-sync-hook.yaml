@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: post-sync-curl-job
+  annotations:
+    "argocd.argoproj.io/hook": PostSync
+    "argocd.argoproj.io/hook-delete-policy": HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: curl
+          image: curlimages/curl:latest
+          env:
+            - name: CHANNEL
+              value: "C029JLHFC6M"
+            - name: EMOJI
+              value: ":rocket:"
+            - name: CI_COMMIT_BRANCH
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['app.kubernetes.io/version']
+            - name: IMG
+              value: "https://argo-cd.readthedocs.io/en/stable/assets/argocd_architecture.png"
+            - name: PROJECT
+              value: "from ArgoCD"
+          command: ["/bin/sh", "-c"]
+          args: [
+            "curl --request POST --url https://hooks.slack.com/services/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 \
+              --header 'Content-Type: application/json' \
+              --data '{\"text\": \"DEPLOY ${PROJECT} ${CI_COMMIT_BRANCH}\", \"username\": \"DEPLOY ${PROJECT}\", \"icon_emoji\": \"${EMOJI}\", \"channel\": \"${CHANNEL}\", \"blocks\": [{\"type\": \"section\", \"block_id\": \"section567\", \"text\": {\"type\": \"mrkdwn\", \"text\": \"Deployment in progress. \n \`${CI_COMMIT_BRANCH}\` \n <https://gitlab.com/courseticket-nilus/helm-charts/-/jobs|check GitLab jobs>\"}, \"accessory\": {\"type\": \"image\", \"image_url\": \"${IMG}\", \"alt_text\": \"Alt image text\"}}]}'}"
+          ]
+      restartPolicy: Never
