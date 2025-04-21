@@ -1,36 +1,3 @@
-# Application for Sealed Secrets
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: sealed-secrets
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://bitnami-labs.github.io/sealed-secrets
-    chart: sealed-secrets
-    targetRevision: 0.17.5
-    helm:
-      releaseName: sealed-secrets
-      values: |
-        fullnameOverride: sealed-secrets
-        commandArgs:
-          - "--update-status"
-        serviceAccount:
-          create: true
-          name: sealed-secrets-controller
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: kube-system
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true
-
----
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -38,6 +5,7 @@ metadata:
   namespace: argocd
 spec:
   project: default
+
   source:
     repoURL: https://github.com/oreplay/oreplay-infrastructure.git
     targetRevision: HEAD
@@ -45,9 +13,11 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: myapp
+
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+
     automated:
       selfHeal: true
       prune: true
