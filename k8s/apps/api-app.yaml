@@ -16,7 +16,7 @@ spec:
         - overwride-values.yaml
       parameters:
         - name: replicaCount
-          value: 4
+          value: "4"
   destination:
     server: https://kubernetes.default.svc
     namespace: oreplay
