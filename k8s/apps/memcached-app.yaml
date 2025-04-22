@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: memcached
-    targetRevision: latest
+    targetRevision: 7.8.1
     helm:
       releaseName: api-memcached
       values: |
