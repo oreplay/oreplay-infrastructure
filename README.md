@@ -33,7 +33,8 @@ k3s kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data
 Finally, to configure the application from in ArgoCD for the cluster we need to run `kubectl apply`:
 
 ```bash
-sudo k3s kubectl apply -f application.yaml
+sudo k3s kubectl apply -f k8s/system/sealed-secrets-app.yaml
+sudo k3s kubectl apply -f k8s/application.yaml
 ```
 
 Sealed secrets will be installed in the cluster, grab the encrypt key with:

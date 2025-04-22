@@ -18,9 +18,7 @@ spec:
             - name: EMOJI
               value: ":rocket:"
             - name: CI_COMMIT_BRANCH
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels['app.kubernetes.io/version']
+              value: "0.0.1"
             - name: IMG
               value: "https://argo-cd.readthedocs.io/en/stable/assets/argocd_architecture.png"
             - name: PROJECT

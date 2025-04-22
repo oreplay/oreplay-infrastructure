@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myapp
-  labels:
-    app.kubernetes.io/version: "1.1"
 spec:
   selector:
     matchLabels:
@@ -13,10 +11,9 @@ spec:
     metadata:
       labels:
         app: myapp
-        app.kubernetes.io/version: "1.1"
     spec:
       containers:
         - name: myapp
-          image: nanajanashia/argocd-app:1.1
+          image: nanajanashia/argocd-app:1.2
           ports:
             - containerPort: 8080
