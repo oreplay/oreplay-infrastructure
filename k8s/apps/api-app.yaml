@@ -13,7 +13,7 @@ spec:
     helm:
       releaseName: nginx-php-api
       valueFiles:
-        - ../../apps/nginx/values.yaml
+        - overwride-values.yaml
       parameters:
         - name: replicaCount
           value: 4
