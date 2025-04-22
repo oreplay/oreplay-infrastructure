@@ -64,10 +64,11 @@ rm kubeseal kubeseal.tar.gz LICENSE README.md
 Seal the secrets with:
 
 ```bash
-kubeseal --cert secrets/sealed-secrets-public.pem --format yaml < secrets/secrets.yaml > k8s/dev/sealed-secrets.yaml
+kubeseal --cert secrets/sealed-secrets-public.pem --format yaml < secrets/slack-webhook-secrets.yaml > k8s/apps/api/post-sync/sealed-secrets-slack-webhook.yaml
+kubectl -n oreplay create secret generic main-application-secrets --dry-run=client --from-env-file="secrets/oreplay.env" --output json | kubeseal --cert secrets/sealed-secrets-public.pem --format yaml | tee k8s/apps/sealed-secrets-main-application.yaml
 ```
 
 Read the secrets with 
 ```bash
-k3s kubectl get secret slack-webhook -n myapp -o jsonpath="{.data.SLACK_WEBHOOK_URL}" | base64 -d
+k3s kubectl get secret slack-webhook -n oreplay -o jsonpath="{.data.SLACK_WEBHOOK_URL}" | base64 -d
 ```

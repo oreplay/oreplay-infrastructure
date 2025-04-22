@@ -19,7 +19,7 @@ spec:
           type: ClusterIP
   destination:
     server: https://kubernetes.default.svc
-    namespace: myapp
+    namespace: oreplay
   syncPolicy:
     automated:
       prune: true
