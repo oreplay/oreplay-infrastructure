@@ -12,7 +12,7 @@ spec:
     targetRevision: 19.1.1
     helm:
       releaseName: nginx-php-api
-      valuesFiles:
+      valueFiles:
         - api/api-values.yaml
   destination:
     server: https://kubernetes.default.svc
