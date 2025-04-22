@@ -312,7 +312,7 @@ cloneStaticSiteFromGit:
       value: "0"
   ## @param cloneStaticSiteFromGit.extraEnvVarsSecret Secret with extra environment variables
   ##
-  extraEnvVarsSecret: "sec-edu-back"
+  extraEnvVarsSecret: "secrets-main-app"
   extraVolumeMounts: []
 serverBlock: ""
 existingServerBlockConfigmap: ""

@@ -13,7 +13,7 @@ spec:
     helm:
       releaseName: nginx-php-api
       valueFiles:
-        - api/api-values.yaml
+        - apps/api/api-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: oreplay
