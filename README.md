@@ -35,6 +35,10 @@ Finally, to configure the application from in ArgoCD for the cluster we need to 
 ```bash
 sudo k3s kubectl apply -f k8s/system/sealed-secrets-app.yaml
 sudo k3s kubectl apply -f k8s/application.yaml
+## if Kubernetes Web-UI is needed:
+sudo k3s kubectl apply -f k8s/system/k8s-web-ui-app.yaml
+## login to Kubernetes Web-UI with:
+k3s kubectl -n kube-system create token oke-admin && k3s kubectl proxy --address=0.0.0.0
 ```
 
 Sealed secrets will be installed in the cluster, grab the encrypt key with:
