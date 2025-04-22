@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8s-web-ui-app
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/oreplay/oreplay-infrastructure.git
+    targetRevision: HEAD
+    path: k8s/system/k8s-web-ui
+    directory:
+      recurse: true
+
+  destination:
+    server: https://kubernetes.default.svc
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
