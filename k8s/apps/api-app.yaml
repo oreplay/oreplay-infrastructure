@@ -14,6 +14,7 @@ spec:
       releaseName: nginx-php-api
       valuesFiles:
         - api/api-values.yaml
+  destination:
     server: https://kubernetes.default.svc
     namespace: oreplay
 
