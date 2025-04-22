@@ -41,6 +41,9 @@ sudo k3s kubectl apply -f k8s/system/k8s-web-ui-app.yaml
 k3s kubectl -n kube-system create token oke-admin && k3s kubectl proxy --address=0.0.0.0
 ```
 
+If needed, remove apps with: `k3s kubectl delete application the-app-name -n argocd`
+
+
 Sealed secrets will be installed in the cluster, grab the encrypt key with:
 
 ```bash
