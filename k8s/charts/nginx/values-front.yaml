@@ -7,7 +7,7 @@ nginx:
   command:
     - /bin/sh
     - -c
-    - php-fpm7.4 && nginx -g 'daemon off;'
+    - cd /var/www && npm run preview
   extraEnvVars:
     - name: VITE_VERSION_NUMBER
       value: "v0.2.19"
