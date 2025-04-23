@@ -11,7 +11,7 @@ spec:
     targetRevision: HEAD
     path: k8s/apps/nginx
     helm:
-      releaseName: nginx-php-cakeapi
+      releaseName: nginx-php-api
       valueFiles:
         - values.yaml
       parameters:
