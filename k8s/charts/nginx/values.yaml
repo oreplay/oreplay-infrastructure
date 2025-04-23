@@ -86,7 +86,7 @@ nginx:
   ## @param extraEnvVarsCM ConfigMap with extra environment variables
   extraEnvVarsCM: ""
   ## @param extraEnvVarsSecret Secret with extra environment variables
-  extraEnvVarsSecret: "secrets-main-app"
+  extraEnvVarsSecret: ""
   ## @section NGINX deployment parameters
 
   ## @param replicaCount Number of NGINX replicas to deploy
