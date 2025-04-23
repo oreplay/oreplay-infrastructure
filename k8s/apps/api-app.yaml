@@ -17,6 +17,10 @@ spec:
       parameters:
         - name: nginx.replicaCount
           value: "1"
+        - name: nginx.customLivenessProbe
+          value: null
+        - name: nginx.customReadinessProbe
+          value: null
   destination:
     server: https://kubernetes.default.svc
     namespace: oreplay
