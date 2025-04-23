@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: oreplay-api-application
+  name: oreplay-cakeapi-application
   namespace: argocd
 spec:
   project: default
@@ -11,12 +11,10 @@ spec:
     targetRevision: HEAD
     path: k8s/apps/nginx
     helm:
-      releaseName: nginx-php-api
+      releaseName: nginx-php-cakeapi
       valueFiles:
         - values.yaml
       parameters:
-        - name: nginx.replicaCount
-          value: "2"
         - name: nginx.customLivenessProbe
           value: null
         - name: nginx.customReadinessProbe
