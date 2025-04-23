@@ -234,7 +234,7 @@ nginx:
     enabled: false
   ## Configures the ports NGINX listens on
   containerPorts:
-    http: ""
+    http: "80"
     https: ""
   extraContainerPorts: []
   resourcesPreset: "nano"
