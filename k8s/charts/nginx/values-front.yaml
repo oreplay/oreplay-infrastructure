@@ -1,0 +1,31 @@
+nginx:
+  replicaCount: 1
+  image:
+    registry: docker.io
+    repository: oreplay/frontend
+    tag: v0.2.19
+  command:
+    - /bin/sh
+    - -c
+    - php-fpm7.4 && nginx -g 'daemon off;'
+  extraEnvVars:
+    - name: VITE_VERSION_NUMBER
+      value: "v0.2.19"
+    - name: VITE_API_DOMAIN
+      value: "https://www.oreplay.es/"
+    - name: VITE_VERSION_TYPE
+      value: "beta"
+    - name: VITE_DESKTOP_CLIENT_VERSION_FALLBACK
+      value: "0.4.2"
+  resources:
+    requests:
+      cpu: 50m
+      memory: 450M
+    limits:
+      cpu: 990m
+      memory: 500M
+  containerPorts:
+    http: 4173
+  service:
+    targetPort:
+      http: 4173

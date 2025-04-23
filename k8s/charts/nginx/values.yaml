@@ -82,13 +82,7 @@ nginx:
     - php-fpm7.4 && nginx -g 'daemon off;'
   args: []
   ## @param extraEnvVars Extra environment variables to be set on NGINX containers
-  extraEnvVars:
-    - name: DEBUG
-      value: "0"
-    - name: UNUSED_1
-      value: "0"
-    - name: UNUSED_2
-      value: "0"
+  extraEnvVars: {}
   ## @param extraEnvVarsCM ConfigMap with extra environment variables
   extraEnvVarsCM: ""
   ## @param extraEnvVarsSecret Secret with extra environment variables
@@ -227,14 +221,8 @@ nginx:
   readinessProbe:
     enabled: false
   customStartupProbe: {}
-  customLivenessProbe:
-    httpGet:
-      path: /api/v1/ping/pong
-      port: 80
-  customReadinessProbe:
-    httpGet:
-      path: /api/v1/ping/pong
-      port: 80
+  customLivenessProbe: {}
+  customReadinessProbe: {}
   ## Autoscaling parameters
   ## @param autoscaling.enabled Enable autoscaling for NGINX deployment
   ## @param autoscaling.minReplicas Minimum number of replicas to scale back

@@ -1,0 +1,17 @@
+nginx:
+  replicaCount: 1
+  image:
+    registry: docker.io
+    repository: oreplay/backend
+    tag: 0.2.21
+  extraEnvVars:
+    - name: UNUSED_0
+      value: "0"
+#  customLivenessProbe:
+#    httpGet:
+#      path: /api/v1/ping/pong
+#      port: 80
+#  customReadinessProbe:
+#    httpGet:
+#      path: /api/v1/ping/pong
+#      port: 80

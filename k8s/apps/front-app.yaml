@@ -14,25 +14,7 @@ spec:
       releaseName: nginx-front-react
       valueFiles:
         - values.yaml
-      parameters:
-        - name: nginx.replicaCount
-          value: "1"
-        - name: nginx.extraEnvVars[1].name
-          value: "VITE_VERSION_NUMBER"
-        - name: nginx.extraEnvVars[1].value
-          value: "v0.2.19"
-        - name: nginx.image.tag
-          value: "v0.2.19"
-        - name: nginx.image.repository
-          value: "oreplay/frontend"
-        - name: nginx.customLivenessProbe
-          value: null
-        - name: nginx.customReadinessProbe
-          value: null
-        - name: nginx.containerPorts.http
-          value: "4173"
-        - name: nginx.service.targetPort.http
-          value: "4173"
+        - values-front.yaml
 
   destination:
     server: https://kubernetes.default.svc
