@@ -2,7 +2,7 @@
 
 ### Use Kubernetes
 
-Install (if needed) Lightweight Kuberenetes with [K3s](https://docs.k3s.io/installation)
+Install (if needed, don't install it if there is a Kubernetes cluster already set up) Lightweight Kuberenetes with [K3s](https://docs.k3s.io/installation)
 
 ```bash
 curl -sfL https://get.k3s.io | sh -
@@ -22,7 +22,7 @@ k3s kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-c
 
 # access ArgoCD UI
 k3s kubectl get svc -n argocd
-k3s kubectl port-forward svc/argocd-server 8080:443 -n argocd
+k3s kubectl port-forward svc/argocd-server --address=0.0.0.0 8080:443 -n argocd
 
 # login with admin user and below token (as in documentation):
 k3s kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo
