@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: oreplay-cakeapi-application
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/oreplay/oreplay-infrastructure.git
+    targetRevision: HEAD
+    path: k8s/charts/nginx
+    helm:
+      releaseName: nginx-php-api
+      valueFiles:
+        - values.yaml
+      parameters:
+        - name: nginx.replicaCount
+          value: "1"
+        - name: nginx.image.repository
+          value: "oreplay/frontend"
+        - name: nginx.image.tag
+          value: "v0.2.19"
+        - name: nginx.customLivenessProbe
+          value: null
+        - name: nginx.customReadinessProbe
+          value: null
+        - name: nginx.containerPorts.http
+          value: 4173
+        - name: nginx.service.targetPort.http
+          value: 4173
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: oreplay
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
