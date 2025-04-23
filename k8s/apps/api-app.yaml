@@ -15,10 +15,8 @@ spec:
       valueFiles:
         - values.yaml
       parameters:
-        - name: nginx.customLivenessProbe
-          value: null
-        - name: nginx.customReadinessProbe
-          value: null
+        - name: nginx.replicaCount
+          value: "1"
   destination:
     server: https://kubernetes.default.svc
     namespace: oreplay
