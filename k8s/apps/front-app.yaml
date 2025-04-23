@@ -17,10 +17,14 @@ spec:
       parameters:
         - name: nginx.replicaCount
           value: "1"
-        - name: nginx.image.repository
-          value: "oreplay/frontend"
+        - name: nginx.extraEnvVars[1].name
+          value: "VITE_VERSION_NUMBER"
+        - name: nginx.extraEnvVars[1].value
+          value: "v0.2.19"
         - name: nginx.image.tag
           value: "v0.2.19"
+        - name: nginx.image.repository
+          value: "oreplay/frontend"
         - name: nginx.customLivenessProbe
           value: null
         - name: nginx.customReadinessProbe
