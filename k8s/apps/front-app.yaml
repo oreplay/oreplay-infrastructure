@@ -26,9 +26,9 @@ spec:
         - name: nginx.customReadinessProbe
           value: null
         - name: nginx.containerPorts.http
-          value: 4173
+          value: "4173"
         - name: nginx.service.targetPort.http
-          value: 4173
+          value: "4173"
 
   destination:
     server: https://kubernetes.default.svc
