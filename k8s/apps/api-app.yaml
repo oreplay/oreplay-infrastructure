@@ -15,12 +15,12 @@ spec:
       valueFiles:
         - values.yaml
       parameters:
-        - name: replicaCount
-          value: "4"
-        - name: image.repository
-          value: "oreplay/backend"
-        - name: image.tag
-          value: "0.2.21"
+        - name: nginx.replicaCount
+          value: "2"
+        - name: nginx.customLivenessProbe
+          value: null
+        - name: nginx.customReadinessProbe
+          value: null
   destination:
     server: https://kubernetes.default.svc
     namespace: oreplay
