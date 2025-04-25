@@ -20,3 +20,10 @@ nginx:
     type: NodePort
     nodePorts:
       http: 30001
+  resources:
+    requests:
+      cpu: 7m
+      memory: 100M
+    limits:
+      cpu: 900m
+      memory: 200M
