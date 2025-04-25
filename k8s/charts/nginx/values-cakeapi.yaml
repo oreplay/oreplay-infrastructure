@@ -16,3 +16,7 @@ nginx:
 #    httpGet:
 #      path: /api/v1/ping/pong
 #      port: 80
+  service:
+    type: NodePort
+    nodePorts:
+      http: 2001

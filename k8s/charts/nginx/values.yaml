@@ -264,7 +264,7 @@ nginx:
 
   ## NGINX Service properties
   service:
-    type: NodePort
+    type: ClusterIP
     ports:
       http: 80
     targetPort:

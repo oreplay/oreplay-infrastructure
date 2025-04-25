@@ -27,5 +27,8 @@ nginx:
   containerPorts:
     http: 4173
   service:
+    type: NodePort
+    nodePorts:
+      http: 2002
     targetPort:
       http: 4173
