@@ -5,7 +5,7 @@
 Install (if needed, don't install it if there is a Kubernetes cluster already set up) Lightweight Kuberenetes with [K3s](https://docs.k3s.io/installation)
 
 ```bash
-curl -sfL https://get.k3s.io | sh -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--disable traefik" sh -
 # Check for Ready node, takes ~30 seconds 
 sudo k3s kubectl get node 
 # /usr/local/bin/k3s-uninstall.sh
@@ -33,15 +33,14 @@ k3s kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data
 Finally, to configure the application from in ArgoCD for the cluster we need to run `kubectl apply`:
 
 ```bash
-sudo k3s kubectl apply -f k8s/system/sealed-secrets-app.yaml
-sudo k3s kubectl apply -f k8s/application.yaml
+sudo k3s kubectl apply -f k8s/app-of-apps.yaml
 ## if Kubernetes Web-UI is needed:
 sudo k3s kubectl apply -f k8s/system/k8s-web-ui-app.yaml
 ## login to Kubernetes Web-UI with:
 k3s kubectl -n kube-system create token oke-admin && k3s kubectl proxy --address=0.0.0.0
 ```
 
-If needed, remove apps with: `k3s kubectl delete application the-app-name -n argocd`
+If needed, remove apps with: `k3s kubectl delete application app-of-apps-oreplay -n argocd`
 
 
 Sealed secrets will be installed in the cluster, grab the encrypt key with:
