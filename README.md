@@ -30,14 +30,15 @@ k3s kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data
 # you can change and delete init password
 ```
 
-If installing a new cluster, installing sealed-secrets-app and sealing the secrets (see below) before applying the app-of-apps would be required.
+If installing a new cluster, installing sealed-secrets-app and sealing the secrets (see below) before applying the app-of-apps would be required
+(you can also connect to ArgoCD UI in port 8080 and click "create app" and paste the yaml file)
 
 ```bash
 sudo k3s kubectl apply -f k8s/system/sealed-secrets-app.yaml
 # grab the encrypt key
 k3s kubectl -n kube-system get secret
 # check the name of sealed-secrets-key in the previous command and replace it in the next one
-k3s kubectl get secret -n kube-system sealed-secrets-key77rrh -o jsonpath="{.data['tls\.crt']}" | base64 -d > oreplay-secrets/sealed-secrets-public.pem
+k3s kubectl get secret -n kube-system sealed-secrets-keydd5fc -o jsonpath="{.data['tls\.crt']}" | base64 -d > oreplay-secrets/sealed-secrets-public.pem
 ```
 
 You will need to install kubeseal locally to be able to seal (encrypt) secrets
@@ -52,8 +53,8 @@ rm kubeseal kubeseal.tar.gz LICENSE README.md
 Seal the secrets with:
 
 ```bash
-kubeseal --cert secrets/sealed-secrets-public.pem --format yaml < secrets/slack-webhook-secrets.yaml > k8s/apps/post-sync/sealed-secrets-slack-webhook.yaml
-k3s kubectl -n oreplay create secret generic secrets-main-app --dry-run=client --from-env-file="oreplay-secrets/oreplay.env" --output json | kubeseal --cert secrets/sealed-secrets-public.pem --format yaml | tee k8s/apps/sealed-secrets-main-app.yaml
+kubeseal --cert secrets/sealed-secrets-public.pem --format yaml < oreplay-secrets/slack-webhook-secrets.yaml > k8s/apps/post-sync/sealed-secrets-slack-webhook.yaml
+kubectl -n oreplay create secret generic secrets-main-app --from-env-file="oreplay-secrets/oreplay.production.env" --dry-run=client -o json |  kubeseal --cert secrets/sealed-secrets-public.pem --format yaml > k8s/apps/sealed-secrets-main-app.yaml
 # (Optionally) Read the secrets with:
 k3s kubectl get secret slack-webhook -n oreplay -o jsonpath="{.data.SLACK_WEBHOOK_URL}" | base64 -d
 ```
