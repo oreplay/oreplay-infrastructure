@@ -22,7 +22,7 @@ nginx:
       cpu: 50m
       memory: 450M
     limits:
-      cpu: 990m
+      cpu: 600m
       memory: 500M
   containerPorts:
     http: 4173
