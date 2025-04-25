@@ -30,28 +30,17 @@ k3s kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data
 # you can change and delete init password
 ```
 
-Finally, to configure the application from in ArgoCD for the cluster we need to run `kubectl apply`:
+If installing a new cluster, installing sealed-secrets-app and sealing the secrets (see below) before applying the app-of-apps would be required.
 
 ```bash
-sudo k3s kubectl apply -f k8s/app-of-apps.yaml
-## if Kubernetes Web-UI is needed:
-sudo k3s kubectl apply -f k8s/system/k8s-web-ui-app.yaml
-## login to Kubernetes Web-UI with:
-k3s kubectl -n kube-system create token oke-admin && k3s kubectl proxy --address=0.0.0.0
-```
-
-If needed, remove apps with: `k3s kubectl delete application app-of-apps-oreplay -n argocd`
-
-
-Sealed secrets will be installed in the cluster, grab the encrypt key with:
-
-```bash
+sudo k3s kubectl apply -f k8s/system/sealed-secrets-app.yaml
+# grab the encrypt key
 k3s kubectl -n kube-system get secret
 # check the name of sealed-secrets-key in the previous command and replace it in the next one
-k3s kubectl get secret -n kube-system sealed-secrets-key6jgf9 -o jsonpath="{.data['tls\.crt']}" | base64 -d > secrets/sealed-secrets-public.pem
+k3s kubectl get secret -n kube-system sealed-secrets-key77rrh -o jsonpath="{.data['tls\.crt']}" | base64 -d > secrets/sealed-secrets-public.pem
 ```
 
-You will need to install kubeseal locally
+You will need to install kubeseal locally to be able to seal (encrypt) secrets
 
 ```bash
 wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.17.5/kubeseal-0.17.5-linux-amd64.tar.gz -O kubeseal.tar.gz
@@ -64,10 +53,20 @@ Seal the secrets with:
 
 ```bash
 kubeseal --cert secrets/sealed-secrets-public.pem --format yaml < secrets/slack-webhook-secrets.yaml > k8s/apps/post-sync/sealed-secrets-slack-webhook.yaml
-kubectl -n oreplay create secret generic secrets-main-app --dry-run=client --from-env-file="secrets/oreplay.env" --output json | kubeseal --cert secrets/sealed-secrets-public.pem --format yaml | tee k8s/apps/sealed-secrets-main-app.yaml
-```
-
-Read the secrets with 
-```bash
+k3s kubectl -n oreplay create secret generic secrets-main-app --dry-run=client --from-env-file="secrets/oreplay.env" --output json | kubeseal --cert secrets/sealed-secrets-public.pem --format yaml | tee k8s/apps/sealed-secrets-main-app.yaml
+# (Optionally) Read the secrets with:
 k3s kubectl get secret slack-webhook -n oreplay -o jsonpath="{.data.SLACK_WEBHOOK_URL}" | base64 -d
 ```
+
+Finally, to configure the application from in ArgoCD for the cluster we need to run `kubectl apply`:
+
+```bash
+sudo k3s kubectl apply -f k8s/app-of-apps.yaml
+## if Kubernetes Web-UI is needed:
+sudo k3s kubectl apply -f k8s/system/k8s-web-ui-app.yaml
+## login to Kubernetes Web-UI with:
+k3s kubectl -n kube-system create token oke-admin && k3s kubectl proxy --address=0.0.0.0
+```
+
+If needed, remove apps with: `k3s kubectl delete application app-of-apps-oreplay -n argocd`
+
