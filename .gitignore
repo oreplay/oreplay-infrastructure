@@ -1,4 +1,4 @@
 .idea
-secrets/*
-!secrets/.empty
+oreplay-secrets/*
+!oreplay-secrets/.empty
 *.tgz
