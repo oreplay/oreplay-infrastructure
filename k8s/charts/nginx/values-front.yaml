@@ -29,6 +29,6 @@ nginx:
   service:
     type: NodePort
     nodePorts:
-      http: 2002
+      http: 30002
     targetPort:
       http: 4173

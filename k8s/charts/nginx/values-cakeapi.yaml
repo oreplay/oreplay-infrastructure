@@ -19,4 +19,4 @@ nginx:
   service:
     type: NodePort
     nodePorts:
-      http: 2001
+      http: 30001
