@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: oreplay-parent
+  name: app-of-apps-oreplay
   namespace: argocd
 spec:
   project: default
