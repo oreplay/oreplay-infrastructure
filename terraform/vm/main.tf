@@ -35,7 +35,7 @@ resource "azurerm_linux_virtual_machine" "vm_mod" {
     name                  = "${var.name_prefix}-virtual-machine"
     resource_group_name   = var.resource_group_name
     location              = var.resource_group_location
-    size                  = "Standard_B1ms" # Equivalent to t2.small
+    size                  = "Standard_B2s" # 2 vCPU 4 GB mem
     admin_username        = "vm_admin_user"
     network_interface_ids = [azurerm_network_interface.vm_mod.id]
 
