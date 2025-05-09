@@ -55,7 +55,7 @@ nginx:
   image:
     registry: docker.io
     repository: oreplay/backend
-    tag: 0.2.21
+    tag: 0.2.23
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -79,7 +79,7 @@ nginx:
   command:
     - /bin/sh
     - -c
-    - php-fpm7.4 && nginx -g 'daemon off;'
+    - php-fpm8.3 && nginx -g 'daemon off;'
   args: []
   ## @param extraEnvVars Extra environment variables to be set on NGINX containers
   extraEnvVars: {}
