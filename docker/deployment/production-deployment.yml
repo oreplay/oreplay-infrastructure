@@ -11,7 +11,7 @@ services:
   memcached:
     image: docker.io/bitnami/memcached:1.6.9-debian-10-r194
   nodejs:
-    image: oreplay/frontend:v0.2.19
+    image: oreplay/frontend:v0.2.21
     command: bash -c "cd /var/www && npm install --ignore-scripts && npm run dev"
     ports:
       - "8086:8080"
