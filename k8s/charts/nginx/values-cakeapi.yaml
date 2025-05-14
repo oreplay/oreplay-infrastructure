@@ -3,7 +3,7 @@ nginx:
   image:
     registry: docker.io
     repository: oreplay/backend
-    tag: 0.2.24
+    tag: 0.2.25
   extraEnvVarsSecret: "secrets-main-app"
   extraEnvVars:
     - name: UNUSED_0
