@@ -51,6 +51,7 @@ runcmd:
   - echo "systemctl restart nginx" | sudo tee -a /home/vm_admin_user/.bash_history > /dev/null
   - echo "sudo cat /var/log/cloud-init-output.log | tail -n 50" | sudo tee -a /home/vm_admin_user/.bash_history > /dev/null
   - echo "sudo cloud-init status --long" | sudo tee -a /home/vm_admin_user/.bash_history > /dev/null
+  - echo "sudo k3s kubectl port-forward svc/argocd-server --address=0.0.0.0 8080:443 -n argocd" | sudo tee -a /home/vm_admin_user/.bash_history > /dev/null
   - echo "-**** install docker compose ***"
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   - echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
