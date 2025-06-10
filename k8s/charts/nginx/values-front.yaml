@@ -10,7 +10,7 @@ nginx:
     - cd /var/www && npm run preview
   extraEnvVars:
     - name: VITE_VERSION_NUMBER
-      value: "v0.2.24"
+      value: "v0.2.25"
     - name: VITE_API_DOMAIN
       value: "https://www.oreplay.es/"
     - name: VITE_VERSION_TYPE
