@@ -3,14 +3,14 @@ nginx:
   image:
     registry: docker.io
     repository: oreplay/frontend
-    tag: v0.3.1
+    tag: v0.3.2
   command:
     - /bin/sh
     - -c
     - cd /var/www && npm run preview
   extraEnvVars:
     - name: VITE_VERSION_NUMBER
-      value: "v0.3.1"
+      value: "v0.3.2"
     - name: VITE_API_DOMAIN
       value: "https://www.oreplay.es/"
     - name: VITE_VERSION_TYPE
