@@ -15,9 +15,9 @@ spec:
       valueFiles:
         - values.yaml
         - values-cakeapi.yaml
-      parameters:
-        - name: nginx.replicaCount
-          value: "1"
+#      parameters:
+#        - name: nginx.replicaCount
+#          value: "1"
   destination:
     server: https://kubernetes.default.svc
     namespace: oreplay
@@ -26,6 +26,6 @@ spec:
     syncOptions:
       - CreateNamespace=true
 
-#    automated:
-#      selfHeal: true
-#      prune: true
+    automated:
+      selfHeal: true
+      prune: true
