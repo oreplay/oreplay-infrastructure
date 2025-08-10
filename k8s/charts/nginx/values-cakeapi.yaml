@@ -25,5 +25,5 @@ nginx:
       cpu: 7m
       memory: 100M
     limits:
-      cpu: 1200m
+      cpu: 800m
       memory: 200M
