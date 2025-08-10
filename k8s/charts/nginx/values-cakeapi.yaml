@@ -1,5 +1,5 @@
 nginx:
-  replicaCount: 2
+  replicaCount: 1
   image:
     registry: docker.io
     repository: oreplay/backend
@@ -25,5 +25,5 @@ nginx:
       cpu: 7m
       memory: 100M
     limits:
-      cpu: 800m
+      cpu: 990m
       memory: 200M

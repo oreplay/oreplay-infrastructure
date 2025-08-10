@@ -90,7 +90,7 @@ nginx:
   ## @section NGINX deployment parameters
 
   ## @param replicaCount Number of NGINX replicas to deploy
-  replicaCount: 2
+  replicaCount: 1
   ## @param revisionHistoryLimit The number of old history to retain to allow rollback
   revisionHistoryLimit: 10
   ## @param updateStrategy.type NGINX deployment strategy type
