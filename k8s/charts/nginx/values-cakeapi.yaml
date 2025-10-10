@@ -8,6 +8,8 @@ nginx:
   extraEnvVars:
     - name: UNUSED_0
       value: "0"
+    - name: FRONT_DOMAIN
+      value: "https://purple-coast-02f129503.2.azurestaticapps.net"
 #  customLivenessProbe:
 #    httpGet:
 #      path: /api/v1/ping/pong
