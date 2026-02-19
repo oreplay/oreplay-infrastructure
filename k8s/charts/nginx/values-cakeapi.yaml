@@ -10,6 +10,11 @@ nginx:
       value: "0"
     - name: FRONT_DOMAIN
       value: "https://purple-coast-02f129503.2.azurestaticapps.net"
+    - name: TAG_VERSION
+      value: "0.4.4"
+    - name: APPLICATION_ENV
+      value: "orpr"
+
 #  customLivenessProbe:
 #    httpGet:
 #      path: /api/v1/ping/pong
