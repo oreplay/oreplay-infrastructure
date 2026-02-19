@@ -3,7 +3,7 @@ nginx:
   image:
     registry: docker.io
     repository: oreplay/frontend
-    tag: v0.4.13
+    tag: v0.4.14
   command:
     - /bin/sh
     - -c
