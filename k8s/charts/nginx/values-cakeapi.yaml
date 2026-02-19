@@ -3,7 +3,7 @@ nginx:
   image:
     registry: docker.io
     repository: oreplay/backend
-    tag: 0.4.4
+    tag: 0.4.7
   extraEnvVarsSecret: "secrets-main-app"
   extraEnvVars:
     - name: UNUSED_0
@@ -11,7 +11,7 @@ nginx:
     - name: FRONT_DOMAIN
       value: "https://purple-coast-02f129503.2.azurestaticapps.net"
     - name: TAG_VERSION
-      value: "0.4.4"
+      value: "0.4.7"
     - name: APPLICATION_ENV
       value: "orpr"
 
