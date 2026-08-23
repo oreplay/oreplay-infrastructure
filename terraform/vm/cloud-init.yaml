@@ -13,6 +13,16 @@ write_files:
       ${nginx_config}
     owner: root:root
     permissions: '0644'
+  - path: /etc/nginx/conf.d/websocket-upgrade.conf
+    content: |
+      # Connection is hop-by-hop, so it has to be rewritten per request: "upgrade"
+      # for the websocket handshake on /api/v1/live/*, "close" for everything else.
+      map $http_upgrade $connection_upgrade {
+          default upgrade;
+          ''      close;
+      }
+    owner: root:root
+    permissions: '0644'
   - path: /home/vm_admin_user/production-deployment.yml
     content: |
       services:
