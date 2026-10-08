@@ -79,7 +79,7 @@ nginx:
   command:
     - /bin/sh
     - -c
-    - php-fpm8.3 && nginx -g 'daemon off;'
+    - if command -v front-proxy-conf >/dev/null; then front-proxy-conf || exit 1; fi; php-fpm8.3 && nginx -g 'daemon off;'
   args: []
   ## @param extraEnvVars Extra environment variables to be set on NGINX containers
   extraEnvVars: {}
