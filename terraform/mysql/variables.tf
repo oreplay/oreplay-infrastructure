@@ -7,7 +7,8 @@ variable "resource_group_name" {
 }
 
 variable "mysql_admin_password" {
-    type = string
+    type      = string
+    ephemeral = true
 }
 
 variable "delegated_subnet_id" {

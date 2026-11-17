@@ -4,8 +4,9 @@ variable "name_prefix" {
 }
 
 variable "admin_password" {
-    description = "Define a strong password with uppercase, lowercase and numbers."
-    type = string
+    description = "MySQL admin password. The app logs in with it, so it must match DATABASE_URL in oreplay.production.env."
+    type      = string
+    ephemeral = true
 }
 
 variable "ssh_pub_full_path" {

@@ -4,8 +4,13 @@ resource "azurerm_mysql_flexible_server" "default" {
     resource_group_name          = var.resource_group_name
     location                     = var.resource_group_location
     administrator_login          = "or_mysql_admin"
-    administrator_password       = var.mysql_admin_password
     backup_retention_days        = 7
+
+    # Write-only, so the password never reaches the plan or the state. It is sent to Azure only
+    # when the version changes: bump it to rotate the password.
+    administrator_password_wo         = var.mysql_admin_password
+    administrator_password_wo_version = 1
+
     geo_redundant_backup_enabled = false
     sku_name                     = "B_Standard_B1ms" # GP_Standard_D2ds_v4
     version                      = "8.0.21"
@@ -24,6 +29,12 @@ resource "azurerm_mysql_flexible_server" "default" {
     storage {
         iops    = 360
         size_gb = 20
+    }
+
+    # Storage auto-grow resizes the disk as the data grows, and Azure cannot shrink it again, so
+    # applying these initial values would replace the server.
+    lifecycle {
+        ignore_changes = [storage[0].size_gb, storage[0].iops]
     }
 
 #    depends_on = [azurerm_private_dns_zone_virtual_network_link.default]

@@ -11,6 +11,8 @@ resource "azurerm_subnet" "vm_mod" {
     resource_group_name  = var.resource_group_name
     virtual_network_name = var.virtual_network_name
     address_prefixes     = ["10.0.3.0/24"]
+
+    private_endpoint_network_policies = "Enabled"
 }
 
 resource "azurerm_network_interface" "vm_mod" {
@@ -60,7 +62,18 @@ resource "azurerm_linux_virtual_machine" "vm_mod" {
         version   = "latest"
     }
 
+    # The Azure Monitor agent extension authenticates with this identity.
+    identity {
+        type = "SystemAssigned"
+    }
+
     custom_data = base64encode(templatefile("${path.module}/cloud-init.yaml", {
         nginx_config = file("${path.module}/nginx.conf")
     }))
+
+    # cloud-init runs only on the first boot, so a changed custom_data means a new VM; ignoring it
+    # keeps an edit to cloud-init.yaml or nginx.conf from replacing the running one.
+    lifecycle {
+        ignore_changes = [custom_data]
+    }
 }
