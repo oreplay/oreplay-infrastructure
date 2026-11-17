@@ -14,6 +14,16 @@ terraform {
             version = "~>3.0"
         }
     }
+
+    # The account is created by the bootstrap stack.
+    backend "azurerm" {
+        subscription_id      = "61f3117d-ee5e-4acc-80c0-fe234ea241d7"
+        resource_group_name  = "oreplay-tfstate"
+        storage_account_name = "oreplaytfstate61f3117d"
+        container_name       = "tfstate"
+        key                  = "main/terraform.tfstate"
+        use_azuread_auth     = true
+    }
 }
 
 provider "azurerm" {
