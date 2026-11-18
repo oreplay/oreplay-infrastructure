@@ -4,6 +4,8 @@
 
 locals {
     audit_retention_days = 365
+    # Shorter than the retention while the policy is unlocked; a locked policy can only be extended.
+    audit_immutability_days = 30
 }
 
 resource "azurerm_resource_group" "audit" {
@@ -42,13 +44,11 @@ resource "azurerm_storage_account" "audit" {
         versioning_enabled = true
     }
 
-    # No one can modify or delete a log blob until it is a year old. Azure Monitor appends to
-    # hourly blobs, which protected append writes still allow. Locking the policy cannot be undone
-    # and Terraform would replace the account to do it, so it is locked with the CLI once settled:
-    # az storage account update -n <name> --immutability-state Locked
+    # No one can modify or delete a log blob during the immutability period. Azure Monitor appends
+    # to hourly blobs, which protected append writes still allow.
     immutability_policy {
         state                         = "Unlocked"
-        period_since_creation_in_days = local.audit_retention_days
+        period_since_creation_in_days = local.audit_immutability_days
         allow_protected_append_writes = true
     }
 
