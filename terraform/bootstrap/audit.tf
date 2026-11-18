@@ -4,7 +4,8 @@
 
 locals {
     audit_retention_days = 365
-    # Shorter than the retention while the policy is unlocked; a locked policy can only be extended.
+    # The policy is locked, so this can only be raised, never lowered, and Azure allows only a few
+    # raises: go straight to the final value.
     audit_immutability_days = 30
 }
 
@@ -47,7 +48,7 @@ resource "azurerm_storage_account" "audit" {
     # No one can modify or delete a log blob during the immutability period. Azure Monitor appends
     # to hourly blobs, which protected append writes still allow.
     immutability_policy {
-        state                         = "Unlocked"
+        state                         = "Locked"
         period_since_creation_in_days = local.audit_immutability_days
         allow_protected_append_writes = true
     }
