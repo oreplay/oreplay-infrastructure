@@ -1,5 +1,5 @@
-# The storage account holding the Terraform states and the exported Activity Log. Applied by hand
-# only, because every other stack depends on it.
+# The storage accounts holding the Terraform states and, apart from them, the exported Activity
+# Log. Applied by hand only, because every other stack depends on it.
 ## az login --tenant 3326c0e7-e6aa-4e04-bbdf-0b325951674c
 # terraform plan -out main.tfplan
 # terraform apply main.tfplan
@@ -74,26 +74,6 @@ resource "azurerm_role_assignment" "tfstate_admin" {
     principal_id         = data.azurerm_client_config.current.object_id
 }
 
-# Azure keeps the Activity Log for 90 days only; this copy lets us still answer who changed what
-# after that. Azure Monitor writes it to the insights-activity-logs container itself.
-resource "azurerm_monitor_diagnostic_setting" "activity_log" {
-    name               = "activity-log-to-storage"
-    target_resource_id = "/subscriptions/${data.azurerm_client_config.current.subscription_id}"
-    storage_account_id = azurerm_storage_account.tfstate.id
-
-    enabled_log {
-        category = "Administrative"
-    }
-
-    enabled_log {
-        category = "Security"
-    }
-
-    enabled_log {
-        category = "Policy"
-    }
-}
-
 resource "azurerm_storage_management_policy" "tfstate" {
     storage_account_id = azurerm_storage_account.tfstate.id
 
@@ -109,22 +89,6 @@ resource "azurerm_storage_management_policy" "tfstate" {
         actions {
             version {
                 delete_after_days_since_creation = 90
-            }
-        }
-    }
-
-    rule {
-        name    = "expire-activity-log"
-        enabled = true
-
-        filters {
-            blob_types   = ["appendBlob"]
-            prefix_match = ["insights-activity-logs/"]
-        }
-
-        actions {
-            base_blob {
-                delete_after_days_since_modification_greater_than = 365
             }
         }
     }
